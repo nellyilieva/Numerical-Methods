@@ -11,7 +11,7 @@ nodes_changed = (2 * np.pi) / 8 * nodes
 A = np.ones([5, 5])
 for i in range (5):
     for j in range (1, 5):
-        if(j % 2 != 0):
+        if j % 2 != 0:
             A[i, j] = np.cos((math.floor(j / 2) + 1) * nodes_changed[i])
         else:
             A[i, j] = np.sin(j / 2 * nodes_changed[i])
