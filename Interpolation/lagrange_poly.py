@@ -23,6 +23,6 @@ def lagrange_poly(x_nodes, y_nodes, x):
         l_i = y_nodes[i]
         for j in range(n):
             if i != j:
-                l_i *= (x - x_points[j]) / (x_points[i] - x_points[j])
+                l_i *= (x - x_nodes[j]) / (x_nodes[i] - x_nodes[j])
         result += l_i
     return result
