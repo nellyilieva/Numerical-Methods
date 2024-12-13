@@ -1,19 +1,18 @@
 import math
 import numpy as np
-import matplotlib.pyplot as plt
 
 
-def diff(nodes, values, left, right):
-    if nodes[left] == nodes[right]:
-        return values[left] / math.factorial(right - left)
-    return (diff(nodes, values, left + 1, right) - diff(nodes, values, left, right - 1)) / (nodes[right] - nodes[left])
+def divided_diff_extended(nodes, values, l, r):
+    if nodes[l] == nodes[r]:
+        return values[np.argmax(nodes == nodes[l]) + r - l] / math.factorial(r-l)
+    return ((divided_diff_extended(nodes, values, l+1, r) - divided_diff_extended(nodes, values, l, r - 1))
+            / (nodes[r] - nodes[l]))
 
 
 def hermite(nodes, values, x):
-    result = 0
-    product = 1
-
-    for i in range(len(values)):
-        result += diff(nodes, values, 0, i) * product
-        product *= (x - nodes[i])
-    return result
+    res = 0
+    mult = 1
+    for i in range(len(nodes)):
+        res += divided_diff_extended(nodes, values, 0, i) * mult
+        mult *= x - nodes[i]
+    return res
