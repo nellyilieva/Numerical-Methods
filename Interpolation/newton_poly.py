@@ -16,3 +16,21 @@ def newton_poly(nodes, values, x):
         polynom += divided_difference(nodes[0:i + 1], values[0:i + 1]) * product
         product *= (x - nodes[i])
     return polynom
+
+
+
+def diff(nodes, vals, l, r):
+    """Recursive divided difference function for Newton's interpolation."""
+    if l == r:
+        return vals[l]
+    return (diff(nodes, vals, l + 1, r) - diff(nodes, vals, l, r - 1)) / (nodes[r] - nodes[l])
+
+
+def newton_poly(nodes, vals, x):
+    """Construct the Newton interpolation polynomial at a point x."""
+    result = 0
+    mult = 1
+    for i in range(nodes.size):
+        result += diff(nodes, vals, 0, i) * mult
+        mult *= (x - nodes[i])
+    return result
